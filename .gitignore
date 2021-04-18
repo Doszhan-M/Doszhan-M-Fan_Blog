@@ -4,7 +4,6 @@
 **/__pycache__/
 dump.rdb
 ./test.py
-commands.md
 password.txt
 username.txt
 smtp.txt
