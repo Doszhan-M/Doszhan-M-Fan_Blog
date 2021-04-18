@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% extends 'board/base.html' %}
+
+
+<style>
+    .fa {
+        color: white;
+        background-color: cornflowerblue;
+    }
+
+    td {
+        background: red;
+        /* Цвет фона ячеек */
+    }
+</style>
+
+{% block head_title %}
+{{ block.super }} : {{post_detail}}
+{% endblock head_title%}
+
+{% block sidebar %}
+{% include 'board/sidebar.html' %}
+{%endblock sidebar%}
+
+{% block body %}
+<div class="col-md-8">
+
+    <div class="card text-center mb-3">
+        <div class="card-header">
+            <h5>{{post_detail.headline}}</h5>
+        </div>
+        <div class="card">
+            <div class="card-body">
+
+                <p class="card-text">{{post_detail.content|safe}}</p>
+
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <p style="text-align: right;">Категория: {{ post_detail.post_category }}</p>
+            <p style="text-align: right;">{{post_detail.date_create|date}}</p>
+        </div><br>
+
+
+        <table width="100%">
+            <tr>
+
+                <td>
+                    {% if user.is_authenticated %}
+                    {% if is_not_author %}
+                    <form action="{% url 'post_response' post_detail.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="post_response" value="{{post_detail.id}}"
+                            class="btn btn-primary">Откликнуться</button>
+                    </form>
+                    {%endif%}
+                    {% endif %}
+                </td>
+
+                <td>
+                    <form action="{% url 'post_like' post_detail.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="post_like" value="{{post_detail.id}}" class="fa fa-thumbs-up">like
+                            {{post_detail.count_like}}</button>
+                        <button type="submit" name="post_dislike" value="{{post_detail.id}}"
+                            class="fa fa-thumbs-down">Unlike {{post_detail.count_dislike}}</button>
+                    </form>
+                </td>
+                
+            </tr>
+
+            {% if is_author %}
+            <tr>
+                <td><a class="btn btn-success" href="{% url 'update_post' post_detail.pk %}">ИЗМЕНИТЬ</a></td>
+                <td>
+                    <a class="btn btn-danger" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        УДАЛИТЬ
+                    </a>
+                    <form class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align: justify;"
+                        href="{{ post.id }}" method="POST">
+                        {% csrf_token %}
+                        <input class="dropdown-item" type="submit" value="ПОДТВЕРДИТЬ">
+                    </form>
+                </td>
+            </tr>
+            {% endif %}
+        </table>
+
+
+        {%comment%}
+
+        {%endcomment%}
+    </div>
+
+</div>
+{%endblock body%}
