@@ -32,10 +32,21 @@
             -moz-border-radius: 0px;
             -webkit-border-radius: 0px;
             border-radius: 0px;
-            border: 0px solid #666;
+            border: 0px solid #666;}
 
         body {
             background-color: rgb(253, 253, 253)
+        }
+        .okno {
+            width: 1020px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #bebee2;
+            border-radius: 10px;
+            color: #0000cc;
+          }
+          .errorlist {  
+            color: #0000cc;
         }
     </style>
 
@@ -74,12 +85,10 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        {% if messages %}
-                        {% for message in messages %}
-                        <div class="nav-link" style=" color: #ff0000;" aria-current="page" >{{message}}</div>
-                        {% endfor %}
-                        {%endif%}
+
+
                     </li>
+                    
                 </ul>
 
                 <form action="{% url 'search_post' %}" method="get" class="d-flex">
@@ -99,6 +108,16 @@
             </div>
         </div>
     </nav>
+
+    <div class="container">
+            {% if messages %}
+            {% for message in messages %} 
+            <div class="okno">
+                <p style="color: #ff0000;">{{message}}</p>
+            </div>
+            {% endfor %}
+            {%endif%} 
+    </div>
 
     <div class="container mt-3">
         <div class="row">

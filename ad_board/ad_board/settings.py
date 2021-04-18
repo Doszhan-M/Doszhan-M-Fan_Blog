@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # 'youtube',
 
-    'board',
+    'board.apps.BoardConfig',
     'users',
 
     'allauth',
@@ -136,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Almaty'
 
 USE_I18N = True
 
@@ -169,7 +169,7 @@ ACCOUNT_ADAPTER = 'users.adapter.MyAccountAdapter'
 
 # Настройки почтового сервера
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-with open(os.path.join(BASE_DIR, 'secret/username.txt'), 'r') as token:
+with open(os.path.join(BASE_DIR, 'secret/smtp.txt'), 'r') as token:
     smtp = token.read()
 EMAIL_HOST = smtp  # адрес сервера почты для всех один и тот же
 EMAIL_PORT = 587  # порт smtp сервера тоже одинаковый
@@ -185,6 +185,13 @@ SERVER_EMAIL = email
 DEFAULT_FROM_EMAIL = email  # Используется для отправки email после регистрации
 EMAIL_SUBJECT_PREFIX = '[FanBlog] '
 
+# Настройки celery
+CELERY_BROKER_URL = 'redis://localhost:6379'  # казывает на URL брокера сообщений (Redis)
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # указывает на хранилище результатов выполнения задач.
+CELERY_ACCEPT_CONTENT = ['application/json']  # допустимый формат данных.
+CELERY_TASK_SERIALIZER = 'json'  # метод сериализации задач.
+CELERY_RESULT_SERIALIZER = 'json'  # метод сериализации результатов.
+CELERY_ENABLE_UTC = False  # селери принимает часовой пояс джанго
 
 # Настройки ckeditor
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"

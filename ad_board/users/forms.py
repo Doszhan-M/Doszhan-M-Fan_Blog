@@ -1,6 +1,7 @@
 from allauth.account.forms import LoginForm, SignupForm, BaseSignupForm
 from django import forms
 from django.forms import ModelForm, CharField, TextInput, EmailInput, FileInput, PasswordInput, EmailField
+from django.core.exceptions import ValidationError
 from .models import CustomUser
 from board.models import Post
 
@@ -42,6 +43,13 @@ class UserForm(ModelForm):
                 'style': 'width:40ch',
             }),
         }
+
+    def clean_email(self):
+        """Проверка уникальности email"""
+        email = self.cleaned_data['email']
+        if  CustomUser.objects.filter(email=email).exists():
+            raise ValidationError('Пользователь с таким email уже зарегистрирован')
+        return email
 
 
 class MyLoginForm(LoginForm):

@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from .models import Post, Category, Comments
 from .forms import PostForm, CategoryForm
@@ -134,4 +135,5 @@ def user_response(request, pk):
     """отклик на пост"""
     post = get_object_or_404(Post, id=request.POST.get('post_response'))
     post.responses.add(request.user)
+    messages.info(request, 'Отклик успешно отправлен!')
     return redirect('post_detail', pk=pk)

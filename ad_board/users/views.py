@@ -55,6 +55,4 @@ class UserProfileEdit(LoginRequiredMixin, UpdateView):
            объекте который мы собираемся редактировать"""
         obj = CustomUser.objects.get(username=self.request.user)
         return obj
-
-
-
+        
