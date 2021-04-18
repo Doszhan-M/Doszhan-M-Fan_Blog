@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
 
+    'djcelery_email',
+
 
 ]
 
@@ -168,22 +170,27 @@ ACCOUNT_FORMS = {'login': 'users.forms.MyLoginForm', 'signup': 'users.forms.MySi
 ACCOUNT_ADAPTER = 'users.adapter.MyAccountAdapter'
 
 # Настройки почтового сервера
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-with open(os.path.join(BASE_DIR, 'secret/smtp.txt'), 'r') as token:
-    smtp = token.read()
-EMAIL_HOST = smtp  # адрес сервера почты для всех один и тот же
-EMAIL_PORT = 587  # порт smtp сервера тоже одинаковый
-with open(os.path.join(BASE_DIR, 'secret/username.txt'), 'r') as token:
-    email = token.read()
-EMAIL_HOST_USER = email  # ваше имя пользователя
-with open(os.path.join(BASE_DIR, 'secret/password.txt'), 'r') as token:
-    password = token.read()
-EMAIL_HOST_PASSWORD = password  # пароль от почты
-EMAIL_USE_TLS = True
-ADMINS = [('Dos', 'dos@mail.ru')]
-SERVER_EMAIL = email
-DEFAULT_FROM_EMAIL = email  # Используется для отправки email после регистрации
-EMAIL_SUBJECT_PREFIX = '[FanBlog] '
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+try:    
+    with open(os.path.join(BASE_DIR, 'secret/EMAIL_HOST.txt'), 'r') as token:
+        smtp = token.read()
+    EMAIL_HOST = smtp  # адрес сервера почты для всех один и тот же
+    EMAIL_PORT = 587  # порт smtp сервера тоже одинаковый
+    with open(os.path.join(BASE_DIR, 'secret/EMAIL_HOST_USER.txt'), 'r') as token:
+        email = token.read()
+    EMAIL_HOST_USER = email  # ваше имя пользователя
+    with open(os.path.join(BASE_DIR, 'secret/EMAIL_HOST_PASSWORD.txt'), 'r') as token:
+        password = token.read()
+    EMAIL_HOST_PASSWORD = password  # пароль от почты
+    EMAIL_USE_TLS = True
+    with open(os.path.join(BASE_DIR, 'secret/ADMINS.txt'), 'r') as token:
+        admins = token.read()
+    ADMINS = [admins]
+    SERVER_EMAIL = email
+    DEFAULT_FROM_EMAIL = email  # Используется для отправки email после регистрации
+    EMAIL_SUBJECT_PREFIX = '[FanBlog] '
+except FileNotFoundError:
+    print('Не найдены файлы настроек почтового сервера')
 
 # Настройки celery
 CELERY_BROKER_URL = 'redis://localhost:6379'  # казывает на URL брокера сообщений (Redis)

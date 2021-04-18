@@ -4,9 +4,10 @@
 **/__pycache__/
 dump.rdb
 ./test.py
-password.txt
-username.txt
-smtp.txt
+ADMINS.txt
+EMAIL_HOST_PASSWORD.txt
+EMAIL_HOST_USER.txt
+EMAIL_HOST.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
