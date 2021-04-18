@@ -169,7 +169,9 @@ ACCOUNT_ADAPTER = 'users.adapter.MyAccountAdapter'
 
 # Настройки почтового сервера
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'  # адрес сервера Яндекс-почты для всех один и тот же
+with open(os.path.join(BASE_DIR, 'secret/username.txt'), 'r') as token:
+    smtp = token.read()
+EMAIL_HOST = smtp  # адрес сервера почты для всех один и тот же
 EMAIL_PORT = 587  # порт smtp сервера тоже одинаковый
 with open(os.path.join(BASE_DIR, 'secret/username.txt'), 'r') as token:
     email = token.read()
