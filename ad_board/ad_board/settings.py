@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'ucmw_!g$ty_b8^gbte@zr90jloet_uj%!mi8i5+1&mkc^7_b3%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['185.23.108.189', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # 'youtube',
 
+    'board.apps.BoardConfig',
+    'users',
 
     'allauth',
     'allauth.account',
