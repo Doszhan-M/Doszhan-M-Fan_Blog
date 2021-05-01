@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_filters',
-    
+
     'ckeditor',
     'ckeditor_uploader',
     # 'youtube',
@@ -75,7 +75,7 @@ ROOT_URLCONF = 'ad_board.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'users' / 'templates' / 'allauth',],
+        'DIRS': [BASE_DIR / 'users' / 'templates' / 'allauth', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -175,13 +175,14 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_FORMS = {'login': 'users.forms.MyLoginForm', 'signup': 'users.forms.MySignupForm',}
+ACCOUNT_FORMS = {'login': 'users.forms.MyLoginForm',
+                 'signup': 'users.forms.MySignupForm', }
 # Указываем файл, где храниться функция переопределения редиректов allauth
 ACCOUNT_ADAPTER = 'users.adapter.MyAccountAdapter'
 
 # Настройки почтового сервера
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
-try:    
+try:
     with open(os.path.join(BASE_DIR, 'secret/EMAIL_HOST.txt'), 'r') as token:
         smtp = token.read()
     EMAIL_HOST = smtp  # адрес сервера почты для всех один и тот же
@@ -203,8 +204,10 @@ except FileNotFoundError:
     print('Не найдены файлы настроек почтового сервера')
 
 # Настройки celery
-CELERY_BROKER_URL = 'redis://localhost:6379'  # казывает на URL брокера сообщений (Redis)
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'  # указывает на хранилище результатов выполнения задач.
+# казывает на URL брокера сообщений (Redis)
+CELERY_BROKER_URL = 'redis://localhost:6379'
+# указывает на хранилище результатов выполнения задач.
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']  # допустимый формат данных.
 CELERY_TASK_SERIALIZER = 'json'  # метод сериализации задач.
 CELERY_RESULT_SERIALIZER = 'json'  # метод сериализации результатов.
@@ -221,9 +224,12 @@ CKEDITOR_CONFIGS = {
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
-            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'document', 'items': [
+                'Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': [
+                'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': [
+                'Find', 'Replace', '-', 'SelectAll']},
             {'name': 'forms',
              'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
                        'HiddenField']},
@@ -238,7 +244,8 @@ CKEDITOR_CONFIGS = {
             {'name': 'insert',
              'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
             '/',
-            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'styles', 'items': [
+                'Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
             {'name': 'about', 'items': ['About']},
@@ -260,7 +267,7 @@ CKEDITOR_CONFIGS = {
         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
         'tabSpaces': 4,
         'extraPlugins': ','.join([
-            'uploadimage', # the upload image feature
+            'uploadimage',  # the upload image feature
             # your extra plugins here
             'div',
             'autolink',
