@@ -26,7 +26,7 @@ SECRET_KEY = 'ucmw_!g$ty_b8^gbte@zr90jloet_uj%!mi8i5+1&mkc^7_b3%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['185.23.108.189', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -46,8 +46,6 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # 'youtube',
 
-    'board.apps.BoardConfig',
-    'users',
 
     'allauth',
     'allauth.account',
@@ -160,7 +158,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_DIR = os.path.join(BASE_DIR, 'static/')
+# STATIC_DIR = os.path.join(BASE_DIR, 'static/')
 # STATICFILES_DIRS = (STATIC_DIR,)
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
