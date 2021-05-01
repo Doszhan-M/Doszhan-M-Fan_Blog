@@ -26,7 +26,7 @@ SECRET_KEY = 'ucmw_!g$ty_b8^gbte@zr90jloet_uj%!mi8i5+1&mkc^7_b3%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['185.23.108.189', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -102,7 +102,7 @@ WSGI_APPLICATION = 'ad_board.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -111,7 +111,7 @@ DATABASES = {
 }
 
 """
-Настройки для базы данных на Postgresql
+# Настройки для базы данных на Postgresql
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -122,7 +122,6 @@ DATABASES = {
         'PORT': '5432',
     },
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
