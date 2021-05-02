@@ -1,0 +1,21 @@
+body {
+    background: linear-gradient(#ffffff, #cfcfcf);
+}
+    
+        
+footer {
+    width: 100%;
+    height: 40px;
+    margin-top: 15%;
+    background: #eeeded;
+    display: flex;
+    justify-content: center;
+}
+
+ .inner-footer {
+    display: table;
+    background: #686a6e;
+    width: 90%;
+    height: 60px;
+    text-align: center
+}

@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ucmw_!g$ty_b8^gbte@zr90jloet_uj%!mi8i5+1&mkc^7_b3%'
+SECRET_KEY = 'ucmw_!g$ty12#$@$^gbte@sfsfloet_uj%!mi8i5+1&mkc^7_b3%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -160,10 +160,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_DIR = os.path.join(BASE_DIR, 'static/')
-# STATICFILES_DIRS = (STATIC_DIR,)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_URL = '/media/'
+
+# STATIC_DIR1 = os.path.join(BASE_DIR, 'board/static/')
+# STATIC_DIR2 = os.path.join(BASE_DIR, 'static/')
+# STATICFILES_DIRS = (STATIC_DIR1, STATIC_DIR2)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 AUTH_USER_MODEL = 'users.CustomUser'
