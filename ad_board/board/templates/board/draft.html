@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-
-<footer>
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-lg-3 mx-auto">
-                <p class="copyright text-muted-center">MMORPG  &copy; YourFanClub 2021</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
-
-<i class="fa fa-thumbs-up"><a href="{% url 'edit_profile' %}"></a></i>
-<a class="fa fa-thumbs-up" href="{% url 'edit_profile' %}">Редактировать</a>
-
-<div style=" color: #ff0000;" aria-current="page" >{{message}}</div>
+<form class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align: justify;"
+href="{% url search_post %}" method="POST">
+{% csrf_token %}
+<input class="dropdown-item" type="submit" value="ПОДТВЕРДИТЬ">
+</form>

@@ -70,7 +70,7 @@ class Comments(models.Model):
     comment_post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    comment_text = models.TextField(null=False)
+    comment_text = models.TextField(null=False, verbose_name='напишите комментарии')
     comment_date = models.DateTimeField(auto_now_add=True)
     comment_rating = models.IntegerField(default=0)
 

@@ -1,7 +1,7 @@
 from django.forms import ModelForm, Select, TextInput, SelectMultiple, Textarea, FileInput, CharField
 # Для загрузки изображении локально
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from .models import Post, Category
+from .models import Post, Category, Comments
 import re
 from django.core.exceptions import ValidationError
 
@@ -55,3 +55,19 @@ class CategoryForm(ModelForm):
                 'option selected': 'Категория'
             }),
         }
+
+
+class CommentForm(ModelForm):
+    """Создать модельную форму"""
+
+    class Meta:
+        model = Comments
+        fields = ['comment_text', ]
+
+        widgets = {
+            'comment_text': Textarea(attrs={
+                'class': 'form-control',
+                'option selected': 'Комментарии'
+            }),
+        }
+

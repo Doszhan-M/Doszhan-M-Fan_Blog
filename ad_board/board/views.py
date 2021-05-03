@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from .models import Post, Category, Comments
-from .forms import PostForm, CategoryForm
+from .forms import PostForm, CategoryForm, CommentForm
 from .filters import PostFilter
 from users.models import CustomUser
 
@@ -30,21 +30,51 @@ class PostList(FormView, ListView):
         return super().form_valid(form)
 
 
-class PostDetail(DetailView, DeleteView):
+class PostDetail(CreateView, DetailView):
     """Представление выбранного поста"""
     model = Post
     template_name = 'board/post_detail.html'
     context_object_name = 'post_detail'
-    success_url = reverse_lazy('posts')
+    form_class = CommentForm
+
+
+    def get_success_url(self, *args, **kwargs):
+        """Redirect to the page listing all of the proxy urls"""
+        pk = self.kwargs.get(self.pk_url_kwarg)
+        return reverse_lazy('post_detail', kwargs={'pk' : pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = get_object_or_404(Post, id=self.kwargs.get(self.pk_url_kwarg))
+        post_id = self.kwargs.get(self.pk_url_kwarg)
+        context['all_comments'] = Comments.objects.filter(comment_post=post_id).order_by('-comment_date')
         if self.request.user == post.post_author:
             context['is_author'] = True
         else:
             context['is_not_author'] = True
         return context
+
+    def form_valid(self, form):
+        """Функция для кастомной валидации полей формы модели"""
+        # создаем форму, но не отправляем его в БД, пока просто держим в памяти
+        fields = form.save(commit=False)
+        # Через реквест передаем недостающую форму, которая обязательно
+        post_id = self.kwargs.get(self.pk_url_kwarg)
+        fields.comment_post = Post.objects.get(pk=post_id)
+        fields.comment_author = self.request.user
+        # Наконец сохраняем в БД
+        fields.save()
+        return super().form_valid(form)
+
+
+
+class PostDelete(DeleteView):
+    """Представление удаления выбранного поста"""
+    queryset = Post.objects.all()
+    success_url = reverse_lazy('posts')
+
+    def get(self, *args, **kwargs):
+        return self.delete(*args, **kwargs)
 
 
 class PostCreate(CreateView):

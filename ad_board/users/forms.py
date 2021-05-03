@@ -13,14 +13,14 @@ class UserForm(ModelForm):
         model = CustomUser
 
         fields = ['username', 'first_name', 'last_name', 'email', 'photo', ]
-        
+
         labels = {'username': 'Логин', 'first_name': 'Имя',
                     'last_name': 'Фамилия', 'email': 'email', 'photo': 'Аватарка', }
 
         widgets = {
             'username': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Введите текст...',
+                'readonly': 'readonly',
                 'style': 'width:40ch ',
             }),
             'first_name': TextInput(attrs={
@@ -47,7 +47,9 @@ class UserForm(ModelForm):
     def clean_email(self):
         """Проверка уникальности email"""
         email = self.cleaned_data['email']
-        if  CustomUser.objects.filter(email=email).exists():
+        username = self.cleaned_data['username']
+        # Достать всех пользователей с таким email, кроме себя
+        if CustomUser.objects.filter(email=email).exclude(username=username).exists():
             raise ValidationError('Пользователь с таким email уже зарегистрирован')
         return email
 

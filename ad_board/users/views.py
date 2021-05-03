@@ -19,6 +19,8 @@ class UserProfile(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['user'] = CustomUser.objects.get(username=self.request.user)
         context['your_posts'] = Post.objects.filter(post_author=self.request.user)
+        # print(self.request.user.email)
+        # print(CustomUser.objects.filter(email=self.request.user.email).exclude(username=self.request.user.username))
         return context
 
     def post(self, request, *args, **kwargs):
