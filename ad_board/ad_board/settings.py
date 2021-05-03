@@ -14,25 +14,13 @@ from pathlib import Path
 import os
 from ad_board.log_settings import log_settings
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 try:
-    with open(os.path.join(BASE_DIR, 'secret/SECRET_KEY.txt'), 'r') as token:
-        secret = token.read()
-    SECRET_KEY = secret  # адрес сервера почты для всех один и тот же
-except FileNotFoundError:
-    print('Не найден файл для SECRET_KEY')
-
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['185.23.108.189', 'localhost', '127.0.0.1']
-
+    from .local_settings import *
+except ImportError:
+    from prod_settings import *
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -104,26 +92,6 @@ WSGI_APPLICATION = 'ad_board.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-"""
-# Настройки для базы данных на Postgresql
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ad_board_db',
-        'USER': 'ad_board',
-        'PASSWORD': 'ad_board',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    },
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -163,13 +131,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-
-STATIC_DIR1 = os.path.join(BASE_DIR, 'board/static/')
-STATICFILES_DIRS = (STATIC_DIR1,)
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-print(BASE_DIR)
+
 AUTH_USER_MODEL = 'users.CustomUser'
 # Настройки allauth
 LOGIN_URL = 'accounts/login/'

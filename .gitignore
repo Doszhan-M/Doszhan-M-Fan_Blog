@@ -9,6 +9,7 @@ EMAIL_HOST_PASSWORD.txt
 EMAIL_HOST_USER.txt
 EMAIL_HOST.txt
 SECRET_KEY.txt
+local_settings.py
 static/
 media/
 
