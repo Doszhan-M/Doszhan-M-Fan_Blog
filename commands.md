@@ -28,3 +28,5 @@ python3 manage.py collectstatic
 sudo fuser -k 8000/tcp
 
 celery -A ad_board worker -l INFO -B
+
+git rm -r --cached /home/linux/github/Fan_Blog/ad_board/secret/SECRET_KEY.txt

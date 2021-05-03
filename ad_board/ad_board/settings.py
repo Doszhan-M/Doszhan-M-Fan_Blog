@@ -165,12 +165,11 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 STATIC_DIR1 = os.path.join(BASE_DIR, 'board/static/')
-STATIC_DIR2 = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = (STATIC_DIR1,)
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
+print(BASE_DIR)
 AUTH_USER_MODEL = 'users.CustomUser'
 # Настройки allauth
 LOGIN_URL = 'accounts/login/'
