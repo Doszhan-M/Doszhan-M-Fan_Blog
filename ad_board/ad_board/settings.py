@@ -18,7 +18,7 @@ from ad_board.log_settings import log_settings
 try:
     from .local_settings import *
 except ImportError:
-    from prod_settings import *
+    from .prod_settings import *
 
 # Application definition
 INSTALLED_APPS = [
@@ -147,7 +147,8 @@ ACCOUNT_FORMS = {'login': 'users.forms.MyLoginForm',
 ACCOUNT_ADAPTER = 'users.adapter.MyAccountAdapter'
 
 # Настройки почтового сервера
-EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 try:
     with open(os.path.join(BASE_DIR, 'secret/EMAIL_HOST.txt'), 'r') as token:
         smtp = token.read()
