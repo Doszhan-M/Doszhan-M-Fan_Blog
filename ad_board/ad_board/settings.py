@@ -147,8 +147,8 @@ ACCOUNT_FORMS = {'login': 'users.forms.MyLoginForm',
 ACCOUNT_ADAPTER = 'users.adapter.MyAccountAdapter'
 
 # Настройки почтового сервера
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 try:
     with open(os.path.join(BASE_DIR, 'secret/EMAIL_HOST.txt'), 'r') as token:
         smtp = token.read()
@@ -163,7 +163,7 @@ try:
     EMAIL_USE_TLS = True
     with open(os.path.join(BASE_DIR, 'secret/ADMINS.txt'), 'r') as token:
         admins = token.read()
-    ADMINS = [admins]
+    ADMINS = [('Dos', 'dos@mail.ru'),]
     SERVER_EMAIL = email
     DEFAULT_FROM_EMAIL = email  # Используется для отправки email после регистрации
     EMAIL_SUBJECT_PREFIX = '[FanBlog] '
