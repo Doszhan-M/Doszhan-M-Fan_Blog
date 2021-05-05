@@ -1,6 +1,7 @@
 import logging
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
@@ -82,10 +83,11 @@ class PostDelete(DeleteView):
         return self.delete(*args, **kwargs)
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     """Представление создания поста"""
     form_class = PostForm
     template_name = 'board/add_post.html'
+    login_url = reverse_lazy('profile')
 
     # Функция для кастомной валидации полей формы модели
     def form_valid(self, form):
@@ -97,11 +99,13 @@ class PostCreate(CreateView):
         fields.save()
         return super().form_valid(form)
 
-class PostUpdate(UpdateView):
+class PostUpdate(LoginRequiredMixin, UpdateView):
     """Представление создания поста"""
     form_class = PostForm
     template_name = 'board/update_post.html'
     success_url = reverse_lazy('posts')
+    login_url = reverse_lazy('profile')
+
 
     def get_object(self, **kwargs):
         """метод get_object чтобы получить информацию об
