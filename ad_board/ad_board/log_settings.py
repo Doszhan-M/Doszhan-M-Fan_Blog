@@ -1,8 +1,11 @@
 from django.core.management.color import color_style
+from pathlib import Path
 import logging
 import sys
 import os
 
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 class DjangoColorsFormatter(logging.Formatter):
     """вывод лога в разных цветах"""
@@ -32,7 +35,7 @@ log_settings = {
     'disable_existing_loggers': False,
 
     'loggers': {
-        # главный логгер
+        # логгер принтов
         '': {
             'handlers': ['console_log', 'common_file_log', 'mail_admins',],
             'level': 'INFO',
@@ -44,9 +47,27 @@ log_settings = {
             'level': 'INFO',
             'propagate': True
         },
+
+        'django.request': {
+            'handlers': ['common_file_log',],
+            'level': 'INFO',
+            'propagate': True
+        },
+
+        'django.template': {
+            'handlers': ['common_file_log',],
+            'level': 'INFO',
+            'propagate': True
+        },
+
+        'django.db.backends': {
+            'handlers': ['common_file_log',],
+            'level': 'INFO',
+            'propagate': True
+        },
         # security необходим, он идет в обход django
         'django.security.*': {
-            'handlers': ['console_log', 'common_file_log'],
+            'handlers': ['console_log', ],
             'level': 'INFO',
             'propagate': True
         },
@@ -76,7 +97,7 @@ log_settings = {
         'common_file_log': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'log/common_log.log',
+            'filename': os.path.join(BASE_DIR, 'log/common_log.log'),
             'when': 'W0',
             'backupCount': 10,
             'formatter': 'colored',
@@ -94,7 +115,7 @@ log_settings = {
         'celery_handler': { # это настройка не работает TODO
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'log/celery_log.log',
+            'filename': os.path.join(BASE_DIR, 'log/celery_log.log'),
 
         }
     },
