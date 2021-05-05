@@ -76,7 +76,7 @@ log_settings = {
         'common_file_log': {
             'level': 'INFO',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': 'logger/common_log.log',
+            'filename': 'log/common_log.log',
             'when': 'W0',
             'backupCount': 10,
             'formatter': 'colored',
@@ -94,7 +94,7 @@ log_settings = {
         'celery_handler': { # это настройка не работает TODO
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'logger/celery_log.log',
+            'filename': 'log/celery_log.log',
 
         }
     },
