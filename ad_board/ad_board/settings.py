@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
-    # 'youtube',
+
 
     'board.apps.BoardConfig',
     'users',
@@ -148,6 +148,7 @@ ACCOUNT_ADAPTER = 'users.adapter.MyAccountAdapter'
 
 # Настройки почтового сервера
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'djcelery_email.backends.CeleryEmailBackend'
 try:
     with open(os.path.join(BASE_DIR, 'secret/EMAIL_HOST.txt'), 'r') as token:
@@ -163,7 +164,7 @@ try:
     EMAIL_USE_TLS = True
     with open(os.path.join(BASE_DIR, 'secret/ADMINS.txt'), 'r') as token:
         admins = token.read()
-    ADMINS = [('Dos', 'dos@mail.ru'),]
+    ADMINS = [('Dos', 'dos891@mail.ru'),]
     SERVER_EMAIL = email
     DEFAULT_FROM_EMAIL = email  # Используется для отправки email после регистрации
     EMAIL_SUBJECT_PREFIX = '[FanBlog] '
@@ -171,7 +172,7 @@ except FileNotFoundError:
     print('Не найдены файлы настроек почтового сервера')
 
 # Настройки celery
-# казывает на URL брокера сообщений (Redis)
+# Указывает на URL брокера сообщений (Redis)
 CELERY_BROKER_URL = 'redis://localhost:6379'
 # указывает на хранилище результатов выполнения задач.
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
@@ -183,7 +184,55 @@ CELERY_ENABLE_UTC = False  # селери принимает часовой по
 # Настройки ckeditor
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_CONFIGS = {}
+CKEDITOR_CONFIGS={
+  'default': {
+    'width': '100%',
+    'height': 400,
+    'toolbar': 'Custom',
+    'extraPlugins': ','.join([
+      'codesnippet',
+      'youtube'
+    ]),
+    'toolbar_Custom': [
+      [
+        'Bold',
+        'Italic',
+        'Underline'
+      ],
+      [
+        'Font',
+        'FontSize',
+        'TextColor',
+        'BGColor'
+      ],
+      [
+        'NumberedList',
+        'BulletedList',
+        '-',
+        'Outdent',
+        'Indent',
+        '-',
+        'JustifyLeft',
+        'JustifyCenter',
+        'JustifyRight',
+        'JustifyBlock'
+      ],
+      [
+        'Link',
+        'Unlink'
+      ],
+      [
+        'Image',
+        'Youtube',
+        'RemoveFormat',
+        'CodeSnippet',
+        'Source',
+      ]
+    ],
+    
+  },
+  
+}
 
 # Логирование
-# LOGGING = log_settings
+LOGGING = log_settings

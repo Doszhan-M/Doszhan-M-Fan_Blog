@@ -1,3 +1,4 @@
+import logging
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, FormView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -7,6 +8,9 @@ from .models import Post, Category, Comments
 from .forms import PostForm, CategoryForm, CommentForm
 from .filters import PostFilter
 from users.models import CustomUser
+
+
+logger = logging.getLogger(__name__)
 
 
 class PostList(FormView, ListView):
@@ -52,6 +56,7 @@ class PostDetail(CreateView, DetailView):
             context['is_author'] = True
         else:
             context['is_not_author'] = True
+        logger.info("Your log message is here")
         return context
 
     def form_valid(self, form):

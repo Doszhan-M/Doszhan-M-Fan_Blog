@@ -6,6 +6,11 @@ from django.conf import settings
 from datetime import datetime, timedelta
 from .models import Post
 from users.models import CustomUser
+import logging
+from django.conf import settings
+
+logger = logging.getLogger(__name__)
+
 
 
 # Функция для асинхронной отправки email
@@ -44,6 +49,7 @@ def send_mail_accept_response(email, username, link, content):
     msg.attach_alternative(html_content, "text/html")  # добавляем html
     msg.send()  # отсылаем
     print(f'Письмо отправлено {email}')
+    logger.info(f'Письмо отправлено {email}')
 
 
 @shared_task

@@ -14,7 +14,7 @@ except FileNotFoundError:
     print(Style.RESET_ALL)
     SECRET_KEY = 'sefesfsefsefsfesff'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['185.23.108.189', 'localhost', '127.0.0.1']
 

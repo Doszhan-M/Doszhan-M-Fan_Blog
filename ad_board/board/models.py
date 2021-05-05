@@ -31,7 +31,7 @@ class Post(models.Model):
         auto_now_add=True, verbose_name='Дата публикации',)
     headline = models.CharField(
         max_length=255, null=False, verbose_name='Заголовок',)
-    content = RichTextField()
+    content = RichTextField(blank=True, null=True,)
     likes = models.ManyToManyField(CustomUser, related_name='post_likes',)
     dislikes = models.ManyToManyField(CustomUser, related_name='post_dislikes',)
     responses = models.ManyToManyField(CustomUser, related_name='post_responses',)
