@@ -35,7 +35,7 @@ log_settings = {
     'disable_existing_loggers': False,
 
     'loggers': {
-        # логгер принтов
+        # логгер для принтов
         '': {
             'handlers': ['console_log', 'common_file_log', 'mail_admins',],
             'level': 'INFO',
