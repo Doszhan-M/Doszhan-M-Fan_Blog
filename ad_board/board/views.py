@@ -74,10 +74,11 @@ class PostDetail(CreateView, DetailView):
 
 
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     """Представление удаления выбранного поста"""
     queryset = Post.objects.all()
     success_url = reverse_lazy('posts')
+    login_url = reverse_lazy('profile')
 
     def get(self, *args, **kwargs):
         return self.delete(*args, **kwargs)
