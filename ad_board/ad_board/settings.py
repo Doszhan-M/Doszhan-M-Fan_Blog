@@ -185,6 +185,7 @@ CELERY_ENABLE_UTC = False  # селери принимает часовой по
 # Настройки ckeditor
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CKEDITOR_UPLOAD_PATH = "uploads/"
+# CKEDITOR_IMAGE_MAX_WIDTH = 200
 CKEDITOR_CONFIGS={
   'default': {
     'width': '100%',

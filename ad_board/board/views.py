@@ -19,14 +19,16 @@ class PostList(FormView, ListView):
     model = Post  # модель из БД
     template_name = 'board/board.html'  # имя шаблона html
     context_object_name = 'post_list'  # имя списка
-    ordering = ['-date_create']
+    ordering = ['-id']
     paginate_by = 4
+    
 
     form_class = CategoryForm
     success_url = reverse_lazy('posts')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        print(self.context_object_name)
         return context
 
     def form_valid(self, form):
@@ -71,7 +73,6 @@ class PostDetail(CreateView, DetailView):
         # Наконец сохраняем в БД
         fields.save()
         return super().form_valid(form)
-
 
 
 class PostDelete(LoginRequiredMixin, DeleteView):
@@ -151,7 +152,7 @@ class CategoryDetail(DetailView):
         # найти pk текущей категории
         cat_pk = self.kwargs.get(self.pk_url_kwarg)
         context["posts"] = Post.objects.filter(
-            post_category=cat_pk)  # все посты из этой категории
+            post_category=cat_pk).order_by('-id')  # все посты из этой категории
         return context
 
 

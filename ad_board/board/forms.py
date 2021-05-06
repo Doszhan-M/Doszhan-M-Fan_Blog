@@ -4,6 +4,7 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from .models import Post, Category, Comments
 import re
 from django.core.exceptions import ValidationError
+from ckeditor_widget.widgets import CKEditorWidget
 
 
 class PostForm(ModelForm):
@@ -32,14 +33,17 @@ class PostForm(ModelForm):
                 'class': 'form-control',
                 'placeholder': 'Выберите рисунок'
             }),
+            'content': CKEditorWidget(attrs={
+                'width': '50%',
+            }),
         }
 
-    def clean_headline(self):
-        """кастомный валидатор"""
-        headline = self.cleaned_data['headline']
-        if re.match(r'\d', headline):
-            raise ValidationError('Название не должно начинаться с цифры')
-        return headline
+    # def clean_headline(self):
+    #     """кастомный валидатор"""
+    #     headline = self.cleaned_data['headline']
+    #     if re.match(r'\d', headline):
+    #         raise ValidationError('Название не должно начинаться с цифры')
+    #     return headline
 
 
 class CategoryForm(ModelForm):
