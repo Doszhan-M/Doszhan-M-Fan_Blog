@@ -1,5 +1,2 @@
-<form class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align: justify;"
-href="{% url search_post %}" method="POST">
-{% csrf_token %}
-<input class="dropdown-item" type="submit" value="ПОДТВЕРДИТЬ">
-</form>
+<p style="text-align: left;">Автор: {{post_detail.post_author}}</p>
+<p style="text-align: right;">Категория: {{ post_detail.post_category }}</p>

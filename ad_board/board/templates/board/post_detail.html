@@ -30,7 +30,10 @@
             </div>
         </div>
         <div class="card-footer text-muted">
-            <p style="text-align: right;">Категория: {{ post_detail.post_category }}</p>
+            <div class="category1">
+            <p>Автор: {{post_detail.post_author}}</p>
+            <p>Категория: {{ post_detail.post_category }}</p>
+            </div>
             <p style="text-align: right;">{{post_detail.date_create|date}}</p>
             <form style="text-align: right;" action=" {% url 'post_like' post_detail.id %}" method="POST">
                 {% csrf_token %}
@@ -51,7 +54,7 @@
                     <form action="{% url 'post_response' post_detail.id %}" method="POST">
                         {% csrf_token %}
                         <button type="submit" name="post_response" value="{{post_detail.id}}"
-                            class="btn btn-primary">Откликнуться</button>
+                            class="btn btn-primary mb-3">Откликнуться</button>
                     </form>
                     {%endif%}
                     {% endif %}
@@ -60,9 +63,9 @@
 
             {% if is_author %}
             <tr>
-                <td><a class="btn btn-success" href="{% url 'update_post' post_detail.pk %}">ИЗМЕНИТЬ</a></td>
+                <td><a class="btn btn-success mb-3" href="{% url 'update_post' post_detail.pk %}">ИЗМЕНИТЬ</a></td>
                 <td>
-                    <a class="btn btn-danger" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    <a class="btn btn-danger mb-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         УДАЛИТЬ
                     </a>

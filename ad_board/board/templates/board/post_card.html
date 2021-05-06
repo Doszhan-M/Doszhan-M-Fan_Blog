@@ -17,7 +17,7 @@
 <div class="card text-center mb-3">
 
     <div class="card-header">
-        Категория: {{ post.post_category }} {{post.post_author}}
+        <h5 class="card-title">{{post.headline}}</h5>
     </div>
 
     <div class="card">
@@ -26,7 +26,6 @@
         {% endif %}
 
         <div class="card-body">
-            <h5 class="card-title">{{post.headline}}</h5>
             {{post.content|safe|truncatewords:10}}
             <a href="{{ post.get_absolute_url }}" class="btn btn-secondary float-right">Подробнее ..</a>
         </div>
@@ -38,7 +37,7 @@
                 <td>
                     <p style="text-align: justify;">{{post.date_create|date}}</p>
                 </td>
-
+                Категория: {{ post.post_category }}
 
                 <td>
                     <form action="{% url 'post_like' post.id %}" method="POST" style="text-align: right; ">
