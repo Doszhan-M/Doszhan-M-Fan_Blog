@@ -4,7 +4,6 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from .models import Post, Category, Comments
 import re
 from django.core.exceptions import ValidationError
-from ckeditor_widget.widgets import CKEditorWidget
 
 
 class PostForm(ModelForm):
@@ -32,9 +31,6 @@ class PostForm(ModelForm):
             'post_picture': FileInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Выберите рисунок'
-            }),
-            'content': CKEditorWidget(attrs={
-                'width': '50%',
             }),
         }
 
