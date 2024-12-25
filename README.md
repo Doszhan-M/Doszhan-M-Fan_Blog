@@ -3,19 +3,19 @@
 
 ## Инструкции по запуску приложения:
 
-### Установить Redis:
+### 1.Установить Redis:
 ```bash
 sudo apt-get update
 sudo apt-get install redis
 redis-server
 ```
 
-### Установить необходимые пакеты:
+### 2.Установить необходимые пакеты:
 ```bash
 pip3 install -r requirements.txt
 ```
 
-### Настроить почтовый сервер:
+### 3.Настроить почтовый сервер:
 В директории `ad_board/secret` Создать 4 текстовых файла с названием:
 
 - **ADMINS.txt**  
@@ -31,13 +31,13 @@ pip3 install -r requirements.txt
 - **EMAIL_HOST_USER.txt**  
   логин от почтового ящика
 
-### Запустить сервер:
+### 3.Запустить сервер:
 ```bash
 python3 manage.py migrate
 python3 manage.py runserver
 ```
 
-### Запустить celery:
+### 4.Запустить celery:
 ```bash
 celery -A slackbot worker -l INFO -B
 ```
